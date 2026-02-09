@@ -1,2 +1,2 @@
 # ResearchPaperTitleGenerator
-NLP-based research paper title generator website
+Mini-project : NLP-based research paper title generator website
