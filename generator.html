@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+         .icon-logo{
+            border-radius: 50%;
+        }
+
+        .icon-text{
+            font-size: 20px;
+            font-family: Vivaldi;
+            text-shadow: black 2px 2px 2px;
+            color: rgb(217, 255, 127);
+            font-style: bold;
+        }
+
+        .navbar-text{ 
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            text-shadow: black 1px 1px 1px;
+        }
+
+        .navbar-text:hover{
+            background-color: white;
+            border-radius: 5px;
+            color: black;
+            text-shadow: none;
+            transition: 0.2s;
+        }
+        
+        .result-card {
+            transition: all 0.3s ease;
+            border-left: 5px solid #03ab6a;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg " style="background-color: rgb(3, 171, 106);">
+        <div class="container">
+            <a href="#" class=" navbar-brand">
+                <img src="{{url_for('static', filename='images/T.png') }}" width="30" height="30" alt="" class="d-inline-block icon-logo">
+                <span class="icon-text">Title Generator</span>
+            </a>
+            <div class="navbar-collapse collapse">
+                <ul class=" navbar-nav ms-auto">
+                    <li class="nav-item me-1">
+                        <a href="{{url_for('index')}}" class="nav-link navbar-text">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="input-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6 px-0 mx-0">
+                    <div class="mt-5" style="text-align: center;">
+                        <h3>Free AI Research Paper Title Generator</h3>
+                        <h6 class="text-black-50">Your AI-powered research paper title generator for personal use.</h6>
+                        <div class="form-section mt-5">
+                            <form action="">
+                                <div class="mb-3">
+                                    <textarea id="abstractInput" name="" placeholder="Paste abstract of your research paper" class="form-control border border-2 border-success" id="" rows="7" ></textarea>
+                                </div>
+                                <button type="button" id="cancelBtn" class="btn btn-danger text-white rounded-5 px-5">
+                                    Cancel
+                                </button>
+                                <button type="button" id="generateBtn" class="btn btn-success text-white rounded-5 px-5">
+                                    Generate Titles
+                                </button>
+                            </form>
+                        </div>
+                        <div id="resultContainer" class="mt-4"></div>
+                    </div>
+                </div>
+                <div class="col-3 "></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       document.getElementById('cancelBtn').onclick = function() {
+            
+            document.getElementById('abstractInput').value = "";
+            document.getElementById('resultContainer').innerHTML = "";
+            document.getElementById('abstractInput').focus();
+        };
+        
+    document.getElementById('generateBtn').onclick = async function(e) {
+        // Prevent accidental form submission
+        e.preventDefault();
+
+        const abstract = document.getElementById('abstractInput').value;
+        const resultsDiv = document.getElementById('resultContainer');
+
+        if (!abstract.trim()) {
+            alert("Please paste an abstract first!");
+            return;
+        }
+
+        // Show a loading state with a spinner
+        resultsDiv.innerHTML = `
+            <div class="text-center">
+                <div class="spinner-border text-success" role="status"></div>
+                <p class='text-muted mt-2'>AI is architecting your titles...</p>
+            </div>`;
+
+        try {
+            const response = await fetch('/api/generate', {
+                method: 'POST', // This is the POST method you need!
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ abstract: abstract })
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
+
+            if (data.titles) {
+                resultsDiv.innerHTML = "<h4 class='mb-3'>Suggested Titles:</h4><h6 class='mb-2 text-info'>Choose the best title from the following.</h6>";
+                data.titles.forEach(title => {
+                    resultsDiv.innerHTML += `
+                        
+                        <div class="alert alert-white bg-white shadow-sm mb-3 result-card">
+                            <span class="text-success me-2">🌟</span> ${title}
+                        </div>`;
+                });
+            }
+        } catch (error) {
+            resultsDiv.innerHTML = "<div class='alert alert-danger'>Error connecting to server. Please ensure the Flask app is running.</div>";
+        }
+    };
+    </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <style>
+        *{
+           box-sizing: border-box;
+           padding: 0;
+           margin: 0; 
+        }
+
+        .landing-page{
+            height: 100vh;
+            width: 100%;
+            background: #2A7B9B;
+            background: linear-gradient(90deg, rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 47%, rgba(237, 221, 83, 1) 100%);
+            background-position: cover;
+            background-attachment: fixed;
+        }
+
+        .icon-logo{
+            border-radius: 50%;
+        }
+
+        .icon-text{
+            font-size: 20px;
+            font-family: Vivaldi;
+            text-shadow: black 2px 2px 2px;
+            color: rgb(217, 255, 127);
+            font-style: bold;
+        }
+
+        .navigation{
+            
+            position: sticky;
+            transition: background-color 0.5s ease-in-out;
+            z-index: 1000;
+            top: 0;
+            
+            /* width: 100%; */
+        }
+
+        .navigation.scrolled{
+            background-color: rgb(3, 171, 106);
+            opacity: 0.98;
+        }
+
+        .navbar-text{ 
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            text-shadow: black 1px 1px 1px;
+        }
+
+        .navbar-text:hover{
+            background-color: white;
+            border-radius: 5px;
+            color: black;
+            text-shadow: none;
+            transition: 0.2s;
+        }
+
+        .landing-image{
+            width: 300px;
+            height: 300px;
+            border-radius: 50px;
+        }
+
+        .text-section{
+            text-align: justify;
+            font-family: Popin;
+            opacity: 0.9;
+        }
+
+        .landing-box-text{
+            color: rgb(3, 171, 106);
+            /* text-shadow: black 0.4px 1px 2px; */
+        }
+
+        .text-section-button{
+            background-color: rgb(3, 171, 106);
+            color: white;
+            font-weight: bold;
+        }
+
+        .text-section-button:hover{
+            background-color: white;
+            color: rgb(3, 171, 106);
+            border: 2px solid rgb(3, 171, 106);
+        }
+
+    </style>
+</head>
+<body class="">
+    <section class="landing-page">
+        <nav class="navbar navbar-expand-lg navigation" >
+            <div class="container">
+                <a href="#" class=" navbar-brand">
+                    <img src="{{url_for('static', filename='images/T.png') }}" width="30" height="30" alt="" class="d-inline-block icon-logo">
+                    <span class="icon-text">Title Generator</span>
+                </a>
+                <div class="navbar-collapse collapse">
+                    <ul class=" navbar-nav ms-auto">
+                        <li class="nav-item me-1">
+                            <a href="#home" class="nav-link navbar-text">Home</a>
+                        </li>
+                        <li class="nav-item me-1">
+                            <a href="#how-work" class="nav-link navbar-text">How work?</a>
+                        </li>
+                        <li class="nav-item me-1"></li>
+                            <a href="#benefits" class="nav-link navbar-text">Benefits</a>
+                        </li>
+                        <!-- <li class="nav-item me-1">
+                            <a href="#" class="nav-link navbar-text">Examples</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container mt-lg-5" id="home">
+            <div class="row">
+                <div class="col-12 text-section px-5 bg-light border-2 rounded shadow">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-8 me-0">
+                            <div class="w-100">
+                                <div class="text mb-3 ">
+                                    <h5 class=" landing-box-text fw-bolder m-0">Hello, literature make your research papers more attractive to users . </h5>
+                                    <p class="text-black m-0" style="font-size: 14px;">
+                                        Stop struggling with wordplay for title. Our nlp-based architect analyzes your research to generate    professional, publication-ready titles in seconds.
+                                    </p>
+                                    <p class="text-black-50 m-0" style="font-size: 12px;">
+                                        Transform Your Abstract into a Masterpiece Title.
+                                    </p>
+                                </div>
+                                <div class="">
+                                    <a href="{{ url_for('generator_page') }}" class="btn text-section-button shadow-sm">Get Started</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 me-0 p-0 d-flex align-items-center">
+                            <img src="{{ url_for('static', filename='images/ai-cartoon1-removebg-preview.png') }}" class="landing-image" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="mt-lg-5 mb-lg-5" id="how-work">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6 d-flex justify-content-center">
+                    <div class="" >
+                        <h4 class=""  style="text-align: center;">HOW IT WORKS?</h4>
+                        <h5  style="text-align: center; " class="landing-box-text">Simple Step-By-Step Process</h5>
+                        <ol type="1" class="mt-4">
+                            <li >Copy and paste your research summary into the generator.</li>
+                            <li>Our model identifies core variables, bigrams, and the unique value proposition of your work.</li>
+                            <li>Select from a list of technical, exploratory, or result-oriented titles tailored to your field.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-lg-5 bg-secondary py-lg-5" id="benefits">
+        <div class="container  w-75">
+            <div class="row px-5">
+                <h4 style="text-align: center;" class="text-white mb-5">Benefits</h4>
+                <div class="col-4">
+                    <div class="card border-2 border-success">
+                        <div class="card-header bg-success">
+                            <p class="card-title text-center text-white">Precision Extraction🔍</p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-size: 12px;">We don't just guess. We use Part-of-Speech tagging to find the nouns that matter.</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-4">
+                    <div class="card border-2 border-success">
+                        <div class="card-header bg-success">
+                            <p class="card-title text-center text-white">Academic Rigor📝</p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-size: 12px;">Generated titles follow the standard conventions of high-impact journals.</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-4">
+                    <div class="card border-2 border-success">
+                        <div class="card-header bg-success">
+                            <p class="card-title text-center text-white">Instant Inspiration⚡</p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text text-center" style="font-size: 12px;">Beat writer's block instantly. Move from a blank page to a polished title in 2 seconds.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('scroll',()=>{
+            navbar = document.querySelector(".navigation");
+            if(window.scrollY > 0){
+                navbar.classList.add('scrolled');
+            }
+            else{
+                navbar.classList.remove('scrolled');
+            }
+        })
+    </script>
+</body>
+</html>
